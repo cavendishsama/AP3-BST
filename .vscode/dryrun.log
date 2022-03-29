@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/mnt/c/Users/98912/Desktop/uni/AP/AP1400-2-HW3-main/AP1400-2-HW3-main'
+make: Leaving directory '/mnt/c/Users/98912/Desktop/uni/AP/AP1400-2-HW3-main/AP1400-2-HW3-main'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+ 
