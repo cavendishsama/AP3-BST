@@ -17,17 +17,17 @@ public:
         Node() = default;
         Node(const Node& node);
 
-        std::partial_ordering operator<=>(const int& _N) const { return value <=> _N; }
-        bool operator==(const int& _N) { return value == _N; }
-
         int value;
         Node* left;
         Node* right;
+
+        std::partial_ordering operator<=>(const int& _N) const { return value <=> _N; }
+        bool operator==(const int& _N) { return value == _N; }
     };
 
 
     Node*& get_root() ;
-    void bfs(std::function<void(Node*& node)> func);
+    void bfs(std::function<void(Node*& node)> func) ;
     size_t length();
     bool add_node(int value);
     Node** find_node(int value);
