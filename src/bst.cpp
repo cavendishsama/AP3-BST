@@ -178,9 +178,97 @@ BST::Node** BST::find_parrent(int m_value){
             else
                 *temp = (*temp)->right;
         }
-
     }
     
+}
+
+BST::Node** BST::find_successor(int m_value){
+
+    BST::Node** temp { new BST::Node*};
+    *temp = *this->find_node(m_value);
+    
+    if(*temp == nullptr)
+        return nullptr;
+    
+    if((*temp)->left == nullptr)
+        return temp;
+    
+    else if ((*temp)->left->right == nullptr){
+        *temp =  (*temp)->left;
+        return temp;
+    }
+
+    else{
+        *temp = (*temp)->left;
+        while((*temp)->right != nullptr)
+            (*temp) = (*temp)->right;
+        
+        return temp;
+    }
+}
+
+bool BST::delete_node(int m_value){
+
+    BST::Node** delete_node { this->find_node(m_value) };
+
+    if( delete_node == nullptr )
+        return false;
+
+    //leaf :
+    if((*delete_node)->left == nullptr && (*delete_node)->right == nullptr){
+        auto delete_node_parent { this->find_parrent(m_value) };
+        
+        //again added !=nullptr for seg fault
+        if((*delete_node_parent)->left != nullptr && (*delete_node_parent)->left->value == m_value ){
+            delete *delete_node;
+            (*delete_node_parent)->left = nullptr;
+            return true;
+        }
+        if((*delete_node_parent)->right != nullptr && (*delete_node_parent)->right->value == m_value){
+            delete *delete_node;
+            (*delete_node_parent)->right = nullptr;
+            return true;
+        }
+    }
+    //right child
+    else if((*delete_node)->left == nullptr && (*delete_node)->right != nullptr){
+        auto delete_node_parent { this->find_parrent(m_value) };
+        if((*delete_node_parent)->right != nullptr && (*delete_node_parent)->right->value == m_value){
+            BST::Node** temp {  new BST::Node* }; 
+            *temp = (*delete_node)->right;
+            delete (*delete_node);
+            (*delete_node_parent)->right = (*temp);
+            return true;
+        }  
+    }
+    //left child
+    else if((*delete_node)->left != nullptr && (*delete_node)->right == nullptr){
+        auto delete_node_parent { this->find_parrent(m_value) };
+        if((*delete_node_parent)->left != nullptr && (*delete_node_parent)->left->value == m_value){
+            BST::Node** temp {  new BST::Node* }; 
+            *temp = (*delete_node)->left;
+            delete (*delete_node);
+            (*delete_node_parent)->left = (*temp);
+            return true;
+        }
+
+    }
+    //both children
+    else{
+        auto delete_node_successor { this->find_successor(m_value) };
+        auto delete_node_successor_parent { this->find_parrent((*delete_node_successor)->value) };
+
+        (*delete_node)->value = (*delete_node_successor)->value;
+        delete (*delete_node_successor);
+        if ((*delete_node_successor_parent)->right != nullptr && (*delete_node_successor_parent)->right->value == (*delete_node_successor)->value) {
+            (*delete_node_successor_parent)->right = nullptr;
+            return true;
+        } else if ((*delete_node_successor_parent)->left != nullptr && (*delete_node_successor_parent)->left->value == (*delete_node_successor)->value) {
+            (*delete_node_successor_parent)->left = nullptr;
+            return true;
+        }    
+    }    
+    return false;
 }
 
 
