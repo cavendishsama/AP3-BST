@@ -23,6 +23,8 @@ public:
 
         std::partial_ordering operator<=>(const int& _N) const { return value <=> _N; }
         bool operator==(const int& _N) { return value == _N; }
+        friend std::ostream& operator<<(std::ostream& os, const BST::Node& v) ;
+
     };
 
 
@@ -34,11 +36,10 @@ public:
     Node** find_parrent(int value);
     Node** find_successor(int value);
     bool delete_node(int value);
+    friend std::ostream& operator<<(std::ostream& os,  BST& v);
 
 private:
     Node* root;
 };
-
-std::ostream& operator<<(std::ostream& os, const BST::Node& v) ;
 
 #endif //BST_H
