@@ -272,24 +272,58 @@ bool BST::delete_node(int m_value){
 }
 
 
+
 std::ostream& operator<<(std::ostream& os,  BST& v){
 
     std::queue<BST::Node*> nodes;
     v.bfs([&nodes](BST::Node*& node) { nodes.push(node); });
-    os << std::string(80, '*') << std::endl;
+    os << std::string(85, '*') << std::endl;
    
     while(!nodes.empty()){
         os << *nodes.front() << std::endl;
         nodes.pop();
     }
     os << "Binary Search tree size: " << v.length() << std::endl;
-    os << std::string(80, '*') << std::endl;
+    os << std::string(85, '*') << std::endl;
     return os;
 
 }
 
 std::ostream& operator<<(std::ostream& os, const BST::Node& v)
 {
-    os << &v << "\t => value: " << v.value << "\t left: " << v.left << "\t right: " << v.right << std::endl;
+    os << &v << "\t => value: " << v.value << "\t\t";
+    std::cout << "left: " << std::left;
+    os.width(15);
+    std::cout << v.left << std::right;
+    os.width(10);
+    std::cout << "right: " << std::left;
+    std::cout << v.right;
+    //  "\t left: " << v.left << "\t right: " << v.right << std::endl;
+    
     return os;
 }
+
+BST& BST::operator++(){
+
+    std::queue<BST::Node*> q;
+    this->bfs([&q](BST::Node*& node) { q.push(node); });
+    while(!q.empty()){
+        q.front()->value++;
+        q.pop();
+    }
+    return *this;
+}
+
+BST BST::operator++(int){
+    BST tree { *this };
+    ++(*this);
+    return *this;
+}
+
+ BST::~BST()
+ {
+ 	std::vector<Node*> nodes;
+ 	bfs([&nodes](BST::Node*& node){nodes.push_back(node);});
+ 	for(auto& node: nodes)
+ 		delete node;
+ }
