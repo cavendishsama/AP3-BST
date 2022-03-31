@@ -21,7 +21,7 @@ BST::Node*& BST::get_root() {
 
 void BST::bfs(std::function<void(Node*& node)> func){
 
-    std::cout << "check point1 ................" << std::endl;
+    // std::cout << "check point1 ................" << std::endl;
     if (root == nullptr)
         return;
     
@@ -118,8 +118,60 @@ bool BST::add_node(int m_value){
     
 }
 
+BST::Node** BST::find_node(int m_value){
+    BST::Node** temp { new BST::Node*};
+    *temp = root;
+    
+    if(*temp == nullptr){
+        std::cout << "Tree doesn't exist" << std::endl;   
+        return nullptr;
+        }
+
+    std::cout << "check point 1 ............" << std::endl;
+    while(true){
+        std::cout << "check point 2 ............" << std::endl;
+
+        if(*temp == nullptr){
+            std::cout << "This value doesn't exist in tree" << std::endl;        
+            return nullptr;
+        }
+
+        //added these != nullptr to fix segmentation fault.
+
+        if(*temp != nullptr && (*temp)->value > m_value){
+            *temp = (*temp)->left;
+            std::cout << "check point 4 ............" << std::endl;
+        }
+        if(*temp != nullptr && (*temp)->value < m_value){
+            *temp = (*temp)->right;
+            std::cout << "check point 5 ............" << std::endl;
+        }
+        if(*temp != nullptr && (*temp)->value == m_value){
+            std::cout << "check point 6 ............" << std::endl;
+            return temp;    
+        }
+    
+    }
+}
+
+std::ostream& operator<<(std::ostream& os,  BST& v){
+
+    std::queue<BST::Node*> nodes;
+    v.bfs([&nodes](BST::Node*& node) { nodes.push(node); });
+    os << std::string(80, '*') << std::endl;
+   
+    while(!nodes.empty()){
+        os << *nodes.front() << std::endl;
+        nodes.pop();
+    }
+    os << "Binary Search tree size: " << v.length() << std::endl;
+    os << std::string(80, '*') << std::endl;
+    return os;
+
+}
+
 std::ostream& operator<<(std::ostream& os, const BST::Node& v)
 {
-    os << &v << v.value << v.left << v.right;
+    os << &v << "\t => value: " << v.value << "\t left: " << v.left << "\t right: " << v.right << std::endl;
     return os;
 }
