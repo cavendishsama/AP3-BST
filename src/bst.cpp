@@ -320,8 +320,23 @@ BST BST::operator++(int){
     return *this;
 }
 
- BST::~BST()
- {
+ BST::BST(BST& bst) : root { nullptr }{
+    std::queue<BST::Node*> q;
+    bst.bfs([&q](BST::Node*& node) { q.push(node); });
+    
+    while (!q.empty())
+    {
+        bst.add_node(q.front()->value);
+        q.pop();
+    }  
+ }
+
+ BST::BST(BST&& bst){
+    root = bst.get_root();
+    bst.root = nullptr;
+ }
+
+  BST::~BST(){
  	std::vector<Node*> nodes;
  	bfs([&nodes](BST::Node*& node){nodes.push_back(node);});
  	for(auto& node: nodes)

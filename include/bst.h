@@ -41,6 +41,9 @@ public:
     BST& operator++();
     BST operator++(int);
 
+    BST() = default;
+    BST( BST& bst);
+    BST(BST&& bst);
     ~BST();
 private:
     Node* root;
