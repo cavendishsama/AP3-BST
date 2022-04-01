@@ -40,6 +40,8 @@ public:
     friend std::ostream& operator<<(std::ostream& os,  BST& v);
     BST& operator++();
     BST operator++(int);
+    BST& operator=(BST& bst);
+    BST& operator=(BST&& bst);
 
     BST() = default;
     BST( BST& bst);
