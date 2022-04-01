@@ -6,6 +6,7 @@
 #include <compare>
 #include <queue>
 #include <vector>
+#include <initializer_list>
 
 class BST
 {
@@ -46,6 +47,7 @@ public:
     BST() = default;
     BST( BST& bst);
     BST(BST&& bst);
+    BST(std::initializer_list<int> );
     ~BST();
 private:
     Node* root;

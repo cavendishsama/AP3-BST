@@ -354,6 +354,11 @@ BST& BST::operator=(BST&& bst){
     bst.root = nullptr;
  }
 
+BST::BST(std::initializer_list<int> node) : root { nullptr }{
+    for (auto i {node.begin()}; i != node.end(); i++)
+        this->add_node(*i);
+}
+
   BST::~BST(){
  	std::vector<Node*> nodes;
  	bfs([&nodes](BST::Node*& node){nodes.push_back(node);});
