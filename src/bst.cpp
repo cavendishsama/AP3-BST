@@ -317,7 +317,7 @@ BST& BST::operator++(){
 BST BST::operator++(int){
     BST tree { *this };
     ++(*this);
-    return *this;
+    return tree;
 }
 
 BST& BST::operator=(BST& bst){
