@@ -326,7 +326,7 @@ BST BST::operator++(int){
     
     while (!q.empty())
     {
-        bst.add_node(q.front()->value);
+        this->add_node(q.front()->value);
         q.pop();
     }  
  }
