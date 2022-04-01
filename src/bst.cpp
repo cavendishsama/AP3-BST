@@ -7,8 +7,6 @@ BST::Node::Node(int m_value, Node* m_left, Node* m_right){
     this->right = m_right;        
 }
 
-// BST::Node::Node() = default;
-
 BST::Node::Node(const Node& node){
     value = node.value;
     left = node.left;
@@ -21,7 +19,6 @@ BST::Node*& BST::get_root() {
 
 void BST::bfs(std::function<void(Node*& node)> func){
 
-    // std::cout << "check point1 ................" << std::endl;
     if (root == nullptr)
         return;
     
@@ -79,7 +76,6 @@ bool BST::add_node(int m_value){
 
     BST::Node* node { new BST::Node(m_value, nullptr, nullptr) }; 
     if(root == nullptr){
-        // std::cout << "check point1 ................" << std::endl;
         root = node;
         return true;
     }
@@ -113,7 +109,6 @@ bool BST::add_node(int m_value){
     else
         prev->left = node;
         
-    // std::cout << "check point0 ................" << std::endl;
     return true;
     
 }
@@ -271,8 +266,6 @@ bool BST::delete_node(int m_value){
     return false;
 }
 
-
-
 std::ostream& operator<<(std::ostream& os,  BST& v){
 
     std::queue<BST::Node*> nodes;
@@ -298,7 +291,6 @@ std::ostream& operator<<(std::ostream& os, const BST::Node& v)
     os.width(10);
     std::cout << "right: " << std::left;
     std::cout << v.right;
-    //  "\t left: " << v.left << "\t right: " << v.right << std::endl;
     
     return os;
 }
