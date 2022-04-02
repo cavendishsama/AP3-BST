@@ -235,6 +235,13 @@ bool BST::delete_node(int m_value){
             (*delete_node_parent)->right = (*temp);
             return true;
         }  
+        else if((*delete_node_parent)->left != nullptr && (*delete_node_parent)->left->value == m_value){
+            BST::Node** temp {  new BST::Node* }; 
+            *temp = (*delete_node)->right;
+            delete (*delete_node);
+            (*delete_node_parent)->left = (*temp);
+            return true;
+        }
     }
     //left child
     else if((*delete_node)->left != nullptr && (*delete_node)->right == nullptr){
@@ -245,6 +252,13 @@ bool BST::delete_node(int m_value){
             delete (*delete_node);
             (*delete_node_parent)->left = (*temp);
             return true;
+        }
+        else if((*delete_node_parent)->right != nullptr && (*delete_node_parent)->right->value == m_value){
+            BST::Node** temp {  new BST::Node* }; 
+            *temp = (*delete_node)->left;
+            delete (*delete_node);
+            (*delete_node_parent)->right = (*temp);
+            return true;            
         }
 
     }
